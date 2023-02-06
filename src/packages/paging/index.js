@@ -1,6 +1,7 @@
-import zqqPaging from './index.vue'
+import Vue from 'vue'
+import zqqTransfer from './index.vue'
 
 // 组件的 name 作为组件调用名
-zqqPaging.install = Vue => Vue.component(zqqPaging.name, zqqPaging)
+zqqTransfer.install = () => Vue.component(zqqTransfer.name, zqqTransfer)
 
-export default zqqPaging
+export default zqqTransfer

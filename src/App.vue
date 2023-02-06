@@ -2,7 +2,7 @@
   <div id="app">
     <zqq-cascader ref="cascader" :boxTitle="title" :boxOperation="operation" :dataObj="dataObj" :selectedData="selectedData" :filterable="true" filter-placeholder="请输入内容哦~" @onChange="onChangeData"></zqq-cascader>
     <el-button style="margin: 50px" @click="getData(1)">获取数据</el-button>
-    <zqq-paging ref="paging" :dataList="dataList" :selectedData="selectedData2" :pageSize="100" :boxTitle="boxTitle" :filterable="true" :filter-placeholder="['请输入左侧内容', '请输入右侧内容']" :pageTexts="['pre', 'next']" :sort="false" :async="true" :isHighlight="true" :highlightColor="'#ff502c'" :getPageData="getPageData" :getSearchData="getSearchData" :showClearBtn="true" @onChange="onChangeData2"></zqq-paging>
+    <zqq-transfer ref="paging" :dataList="dataList" :selectedData="selectedData2" :pageSize="100" :boxTitle="boxTitle" :filterable="true" :filter-placeholder="['请输入左侧内容', '请输入右侧内容']" :pageTexts="['pre', 'next']" :sort="false" :async="true" :isHighlight="true" :highlightColor="'#ff502c'" :getPageData="getPageData" :getSearchData="getSearchData" :showClearBtn="true" @onChange="onChangeData2"></zqq-transfer>
     <el-button style="margin: 50px" @click="getData(2)">获取数据</el-button>
     <el-button style="margin: 50px" @click="clearQuery('left')">清空左边搜索框</el-button>
     <el-button style="margin: 50px" @click="clearQuery('right')">清空右边搜索框</el-button>

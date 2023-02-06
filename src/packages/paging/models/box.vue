@@ -15,7 +15,15 @@
         </span>
       </div>
       <el-checkbox-group :class="{ expand: !filterable }" v-model="checkedData" v-if="districtListMock.length > 0" @change="handleCheckedChange">
-        <el-checkbox v-for="(item, index) in districtListMock" class="el-transfer-panel__item" :disabled="item.disabled" :title="item.label" :label="item" :key="index">
+        <draggable v-model="districtListMock" :group="group" animation="500" v-if="drag">
+          <transition-group>
+            <el-checkbox v-for="item in districtListMock" class="el-transfer-panel__item" :disabled="item.disabled" :title="item.label" :label="item" :key="item.id">
+              <span v-html="isHighlight ? filterHighlight(item.label) : item.label"></span>
+            </el-checkbox>
+          </transition-group>
+        </draggable>
+
+        <el-checkbox v-for="item in districtListMock" class="el-transfer-panel__item" :disabled="item.disabled" :title="item.label" :label="item" :key="item.id" v-else>
           <span v-html="isHighlight ? filterHighlight(item.label) : item.label"></span>
         </el-checkbox>
       </el-checkbox-group>
@@ -29,8 +37,20 @@
 </template>
 
 <script>
+  import draggable from 'vuedraggable'
   export default {
+    components: {
+      draggable
+    },
     props: {
+      group: {
+        type: Number
+      },
+      drag: {
+        // 是否开启列表拖拽功能
+        type: Boolean,
+        default: false
+      },
       title: {
         type: String
       },
@@ -99,12 +119,13 @@
         this.$emit('search-word', newWord, this.operateId)
       },
       // districtListMock 和 checkAll 的监听器
-      districtListMock() {
+      districtListMock(val) {
         // 当方框中无已选择的数据时，不能勾选checkBox
         if (this.checkedData.length === 0) {
           this.checkAll = false
           this.isIndeterminate = false
         }
+        this.$emit('on-change', val)
       },
       checkedData(newWord) {
         this.$emit('check-disable', newWord, this.operateId)
@@ -198,14 +219,13 @@
         const filterWord = this.searchWord.trim()
         label = label && label.trim()
         if (filterWord && label) {
-          let reg = new RegExp(filterWord)
+          let reg = new RegExp(filterWord, 'g')
           return label.replace(reg, `<span style="color: ${this.highlightColor}">${filterWord}</span>`)
         } else {
           return label
         }
       }
-    },
-    components: {}
+    }
   }
 </script>
 
