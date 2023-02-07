@@ -2,6 +2,8 @@
   <div class="zqq-main">
     <zqq-box
       ref="noSelect"
+      :group="transferId"
+      :drag="drag"
       :title="boxTitle[0]"
       :operateId="0"
       :dataShowList="leftShowList"
@@ -243,9 +245,6 @@ export default {
         }
       } else {
         this.rightKeyword = keyword
-        // this.rightShowList = this.rightDataList.filter(val =>
-        //   val.label.includes(keyword)
-        // )
       }
       let refsName = titleId === 0 ? 'noSelect' : 'hasSelect'
       // 延迟执行
